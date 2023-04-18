@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JTextField;
 
 public class Engine {
 
@@ -42,7 +41,7 @@ public class Engine {
             throw new EngineOffException();
         }
         if (magnitude + actualSpeed > this.maxSpeed) {
-            throw new EngineCapacityExceededException();
+            throw new EngineCapacityExceededException(magnitude, actualSpeed, this.maxSpeed);
         }
     }
 

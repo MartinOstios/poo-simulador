@@ -14,7 +14,7 @@ public class Tire {
     
     public void toBrake(int magnitude, int actualVelocity){
         if(magnitude > 30 & actualVelocity > maxSpeed){
-            throw new TireCapacityExceededException();
+            throw new TireCapacityExceededException(magnitude, actualVelocity, maxSpeed);
         }
     }
     

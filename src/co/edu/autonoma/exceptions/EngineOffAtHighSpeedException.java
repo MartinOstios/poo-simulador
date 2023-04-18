@@ -9,5 +9,9 @@ package co.edu.autonoma.exceptions;
  * @author izibr
  */
 public class EngineOffAtHighSpeedException extends RuntimeException {
+
+    public EngineOffAtHighSpeedException() {
+        super("Apagaste el vehículo a más de 60km/h");
+    }
     
 }

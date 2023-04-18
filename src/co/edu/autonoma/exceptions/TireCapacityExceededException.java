@@ -10,8 +10,8 @@ package co.edu.autonoma.exceptions;
  */
 public class TireCapacityExceededException extends RuntimeException {
 
-    public TireCapacityExceededException() {
-        super("Frenó bruscamente a una velocidad superior a la soportada por las ruedas");
+    public TireCapacityExceededException(int magnitude, int actualVelocity, int maxSpeed) {
+        super("Frenaste bruscamente (" + magnitude +"km/h) a una velocidad de "+ actualVelocity + "km/h pero la capacidad máxima de las llantas es: " + maxSpeed + "km/h");
     }
     
 }

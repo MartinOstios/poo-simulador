@@ -9,5 +9,9 @@ package co.edu.autonoma.exceptions;
  * @author izibr
  */
 public class EngineCapacityExceededException extends RuntimeException{
+
+    public EngineCapacityExceededException(int magnitude, int actualSpeed, int maxSpeed) {
+        super("Intentaste acelerar hasta " + (magnitude + actualSpeed) + "km/h pero la capacidad máxima del motor es: " + maxSpeed + "km/h");
+    }
     
 }

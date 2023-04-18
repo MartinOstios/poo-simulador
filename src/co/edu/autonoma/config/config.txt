@@ -1,2 +1,2 @@
-llantas Bonitas
-motor 3000
+llantas Baratas
+motor 2000

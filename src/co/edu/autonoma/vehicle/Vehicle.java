@@ -9,49 +9,43 @@ import javax.swing.JTextField;
 
 public class Vehicle {
 
-    private int velocity;
+    private int speed;
     private Engine myEngine;
     private Tire myTire;
 
     public Vehicle() {
-        this.velocity = 0;
+        this.speed = 0;
     }
 
     public void turnOn() {
-        System.out.println(">>> Encendiendo el vehículo <<<");
         myEngine.turnOn();
     }
 
     public void turnOff() {
-        System.out.println(">>> Apagando el vehículo <<<");
-        myEngine.turnOff(velocity);
+        myEngine.turnOff(speed);
     }
 
     public void speedUp(int magnitude) {
-        System.out.println(">>> Acelerando: " + magnitude + " <<<");
-        myEngine.speedUp(magnitude, this.velocity);
-        velocity += magnitude;
-        System.out.println("Velocidad actual: " + this.velocity);
+        myEngine.speedUp(magnitude, this.speed);
+        speed += magnitude;
     }
 
     public void toBrake(int magnitude) {
-        System.out.println(">>> Frenando: " + magnitude + " <<<");
         myEngine.toBrake();
-        if (magnitude > this.velocity) {
-            throw new BrakeMagnitudeExceededException();
+        if (magnitude > this.speed) {
+            throw new BrakeMagnitudeExceededException(magnitude, this.speed);
         }
-        myTire.toBrake(magnitude, velocity);
-        velocity -= magnitude;
-        System.out.println("Velocidad actual: " + this.velocity);
+        myTire.toBrake(magnitude, speed);
+        speed -= magnitude;
     }
-    
-    public void skid(){
-        this.velocity = 0;
+
+    public void skid() {
+        this.speed = 0;
     }
-    
-    public void crash(){
-        this.velocity = 0;
-        this.myEngine.turnOff(velocity);
+
+    public void crash() {
+        this.speed = 0;
+        this.myEngine.turnOff(speed);
     }
 
     public void drawSwitchButton(Graphics g, ImageObserver parent) throws IOException {
@@ -61,7 +55,7 @@ public class Vehicle {
     public void updateData(Graphics g) {
         g.setColor(Color.WHITE);
         g.setFont(g.getFont().deriveFont(30f));
-        g.drawString(this.velocity+" km/h", 160, 300);
+        g.drawString(this.speed + " km/h", 160, 300);
     }
 
     public void createEngine(int cylCapacity) {

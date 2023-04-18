@@ -18,9 +18,6 @@ import javax.swing.Timer;
 public class Simulator extends javax.swing.JFrame {
 
     Vehicle vehicle;
-    private final int GOOD_STATUS = 0;
-    private final int SKID_STATUS = 1;
-    private final int CRASH_STATUS = 2;
     private int magnitude = 0;
     // TIMER
     Timer timer;
@@ -44,23 +41,6 @@ public class Simulator extends javax.swing.JFrame {
         } catch (IOException e2) {
             System.out.println(e2.getMessage());
         }
-
-        try {
-
-        } catch (EngineOffException e1) {
-            System.out.println("Error: El coche está apagado");
-        } catch (EngineOnException e2) {
-            System.out.println("Error: El coche está encendido");
-        } catch (EngineCapacityExceededException e3) {
-            System.out.println("Error: Aceleraste más de lo que el motor aguanta");
-        } catch (EngineOffAtHighSpeedException e4) {
-            System.out.println("Error: Apagaste el vehículo a mucha velocidad");
-        } catch (TireCapacityExceededException e5) {
-            System.out.println("Error: Frenaste bruscamente e ibas a una velocidad superior que la permitida por las llantas");
-        } catch (BrakeMagnitudeExceededException e6) {
-            System.out.println("Error: Frenaste a una magnitud superior que la velocidad actual");
-        }
-
     }
 
     @Override
@@ -116,7 +96,7 @@ public class Simulator extends javax.swing.JFrame {
             } catch (EngineOffException e1) {
                 JOptionPane.showMessageDialog(this, "Intentaste apagar el vehículo pero este ya está apagado");
             } catch (EngineOffAtHighSpeedException e2) {
-                JOptionPane.showMessageDialog(this, "Apagaste el vehículo a más de 60km/h");
+                JOptionPane.showMessageDialog(this, e2.getMessage());
                 crash();
             }
         }
@@ -125,11 +105,9 @@ public class Simulator extends javax.swing.JFrame {
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         resetTimer();
         if (isSpeedButtonClicked(evt)) {
-            System.out.println("Aceleración");
             timer.start();
         }
         if (isBrakeButtonClicked(evt)) {
-            System.out.println("Frenando");
             timer.start();
         }
     }//GEN-LAST:event_formMousePressed
@@ -142,7 +120,7 @@ public class Simulator extends javax.swing.JFrame {
             } catch (EngineOffException e1) {
                 JOptionPane.showMessageDialog(this, "No puedes acelerar porque el motor está apagado");
             } catch (EngineCapacityExceededException e2) {
-                JOptionPane.showMessageDialog(this, "La capacidad del motor fue excedida");
+                JOptionPane.showMessageDialog(this, e2.getMessage());
                 crash();
             }
         }
@@ -155,21 +133,24 @@ public class Simulator extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, e2.getMessage());
                 skid();
             } catch (BrakeMagnitudeExceededException e3) {
-                JOptionPane.showMessageDialog(this, "La magnitud de frenado es mayor a la velocidad del coche");
+                JOptionPane.showMessageDialog(this, e3.getMessage());
                 skid();
             }
         }
     }//GEN-LAST:event_formMouseReleased
 
     public void drawMagnitude(Graphics g) {
-        g.setColor(Color.red);
-        g.setFont(g.getFont().deriveFont(20f));
-        g.drawString("Magnitude: " + magnitude, this.getWidth() - 150, 80);
+        g.setColor(Color.BLACK);
+        g.setFont(g.getFont().deriveFont(30f));
+        g.drawString("Magnitude: " + magnitude, this.getWidth() - 230, 80);
+        //g.drawRect(940, 55, 60, 25);
+        repaint(940, 55, 60, 25);
     }
 
     public void drawVehicleVelocity(Graphics g) {
         vehicle.updateData(g);
-        repaint();
+        g.drawRect(160, 275, 130, 30);
+        repaint(160, 275, 130, 30);
     }
 
     public static void main(String args[]) {
@@ -191,16 +172,9 @@ public class Simulator extends javax.swing.JFrame {
 
     public void drawComponents(Graphics g) {
         try {
-            BufferedImage image1 = ImageIO.read(getClass().getResource("../imgs/speed_image.png"));
-            BufferedImage image2 = ImageIO.read(getClass().getResource("../imgs/brake_image.png"));
-            BufferedImage image3 = ImageIO.read(getClass().getResource("../imgs/on_button.png"));
-            BufferedImage image4 = ImageIO.read(getClass().getResource("../imgs/off_button.png"));
-
             vehicle.drawSwitchButton(g, this);
-            g.drawImage(image1, 886, 194, 100, 292, this);
-            g.drawImage(image2, 756, 317, 100, 168, this);
-            g.drawImage(image3, 626, 386, 100, 100, this);
-            g.drawImage(image4, 496, 386, 100, 100, this);
+            //g.drawRect(386, 396, 80, 80);
+            repaint(386, 396, 80, 80);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

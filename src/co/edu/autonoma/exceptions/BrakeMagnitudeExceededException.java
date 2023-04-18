@@ -9,5 +9,9 @@ package co.edu.autonoma.exceptions;
  * @author izibr
  */
 public class BrakeMagnitudeExceededException extends RuntimeException{
+
+    public BrakeMagnitudeExceededException(int magnitud, int velocity) {
+        super("Frenaste con una magnitud de " + magnitud + "km/h pero la velocidad actual es " + velocity +"km/h");
+    }
     
 }

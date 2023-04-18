@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/exceptions/EngineCapacityExceededException.java</file>
+            <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/exceptions/EngineOffAtHighSpeedException.java</file>
             <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/exceptions/TireCapacityExceededException.java</file>
+            <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/exceptions/BrakeMagnitudeExceededException.java</file>
             <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/vehicle/Tire.java</file>
             <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/vehicle/Vehicle.java</file>
+            <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/exceptions/EngineOffException.java</file>
+            <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/config/config.txt</file>
             <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/simulator/Simulator.java</file>
             <file>file:/C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/vehicle/Engine.java</file>
         </group>
