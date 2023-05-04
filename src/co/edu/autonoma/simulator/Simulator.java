@@ -1,6 +1,7 @@
 package co.edu.autonoma.simulator;
 
 import co.edu.autonoma.exceptions.*;
+import co.edu.autonoma.interfaces.Drawable;
 import co.edu.autonoma.vehicle.Vehicle;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,7 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-public class Simulator extends javax.swing.JFrame {
+public class Simulator extends javax.swing.JFrame implements Drawable{
 
     Vehicle vehicle;
     private int magnitude = 0;
@@ -30,17 +31,23 @@ public class Simulator extends javax.swing.JFrame {
         setResizable(false);
         timer = new Timer(INITIAL_DELAY, action);
         vehicle = new Vehicle();
+        vehicle.setDrawable(this);
         try {
             RandomAccessFile file = new RandomAccessFile("C:/Users/izibr/OneDrive/Escritorio/Universidad/ProOri/Simulador/src/co/edu/autonoma/config/config.txt", "r");
-            String line1 = file.readLine();
-            String line2 = file.readLine();
-            vehicle.createTire(line1.split(" ")[1]);
-            vehicle.createEngine(Integer.parseInt(line2.split(" ")[1]));
+            String tyre = file.readLine().split(" ")[1];
+            String engine = file.readLine().split(" ")[1];
+            vehicle.createTire(tyre);
+            vehicle.createEngine(Integer.parseInt(engine));
+            showVehicleData(tyre, engine);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (IOException e2) {
             System.out.println(e2.getMessage());
         }
+    }
+    
+    public void showVehicleData(String tire, String engine){
+        JOptionPane.showMessageDialog(this, "Llantas: " + tire + "\nMotor: " + engine, "Configuración del vehículo", JOptionPane.DEFAULT_OPTION);
     }
 
     @Override
@@ -106,6 +113,7 @@ public class Simulator extends javax.swing.JFrame {
         resetTimer();
         if (isSpeedButtonClicked(evt)) {
             timer.start();
+            repaint(0, 0, 2, 2);
         }
         if (isBrakeButtonClicked(evt)) {
             timer.start();
@@ -143,14 +151,13 @@ public class Simulator extends javax.swing.JFrame {
         g.setColor(Color.BLACK);
         g.setFont(g.getFont().deriveFont(30f));
         g.drawString("Magnitude: " + magnitude, this.getWidth() - 230, 80);
-        //g.drawRect(940, 55, 60, 25);
-        repaint(940, 55, 60, 25);
+        if(timer.isRunning()){
+            this.redraw(940, 55, 60, 25);
+        }
     }
 
     public void drawVehicleVelocity(Graphics g) {
         vehicle.updateData(g);
-        g.drawRect(160, 275, 130, 30);
-        repaint(160, 275, 130, 30);
     }
 
     public static void main(String args[]) {
@@ -173,8 +180,6 @@ public class Simulator extends javax.swing.JFrame {
     public void drawComponents(Graphics g) {
         try {
             vehicle.drawSwitchButton(g, this);
-            //g.drawRect(386, 396, 80, 80);
-            repaint(386, 396, 80, 80);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -240,6 +245,11 @@ public class Simulator extends javax.swing.JFrame {
     public void resetTimer() {
         magnitude = 0;
         timer.setDelay(INITIAL_DELAY);
+    }
+
+    @Override
+    public void redraw(int x, int y, int width, int height) {
+        repaint(x, y, width, height);
     }
 
 

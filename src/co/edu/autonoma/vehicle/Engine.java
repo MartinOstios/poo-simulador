@@ -1,6 +1,7 @@
 package co.edu.autonoma.vehicle;
 
 import co.edu.autonoma.exceptions.*;
+import co.edu.autonoma.interfaces.Drawable;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -12,6 +13,7 @@ public class Engine {
     private int cylCapacity;
     private int maxSpeed;
     private boolean switchOn;
+    private Drawable drawable;
 
     public Engine(int cylCapacity) {
         this.cylCapacity = cylCapacity;
@@ -24,6 +26,7 @@ public class Engine {
             throw new EngineOnException();
         }
         this.switchOn = true;
+        drawable.redraw(386, 396, 80, 80);
     }
 
     public void turnOff(int actualVelocity) {
@@ -34,6 +37,7 @@ public class Engine {
             throw new EngineOffAtHighSpeedException();
         }
         this.switchOn = false;
+        drawable.redraw(386, 396, 80, 80);
     }
 
     public void speedUp(int magnitude, int actualSpeed) {
@@ -76,6 +80,10 @@ public class Engine {
             default:
                 this.maxSpeed = -1;
         }
+    }
+    
+    public void setDrawable(Drawable drawable){
+        this.drawable = drawable;
     }
 
 }

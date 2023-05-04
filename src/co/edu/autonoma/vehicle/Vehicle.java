@@ -1,17 +1,18 @@
 package co.edu.autonoma.vehicle;
 
 import co.edu.autonoma.exceptions.*;
+import co.edu.autonoma.interfaces.Drawable;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
-import javax.swing.JTextField;
 
-public class Vehicle {
+public class Vehicle implements Drawable{
 
     private int speed;
     private Engine myEngine;
     private Tire myTire;
+    private Drawable drawable;
 
     public Vehicle() {
         this.speed = 0;
@@ -28,6 +29,7 @@ public class Vehicle {
     public void speedUp(int magnitude) {
         myEngine.speedUp(magnitude, this.speed);
         speed += magnitude;
+        this.drawable.redraw(160, 275, 130, 30);
     }
 
     public void toBrake(int magnitude) {
@@ -37,6 +39,7 @@ public class Vehicle {
         }
         myTire.toBrake(magnitude, speed);
         speed -= magnitude;
+        this.drawable.redraw(160, 275, 130, 30);
     }
 
     public void skid() {
@@ -61,10 +64,20 @@ public class Vehicle {
     public void createEngine(int cylCapacity) {
         this.myEngine = new Engine(cylCapacity);
         this.myEngine.setMaxSpeed();
+        this.myEngine.setDrawable(this);
     }
 
     public void createTire(String type) {
         this.myTire = new Tire(type);
         this.myTire.setMaxSpeed();
+    }
+    
+    public void setDrawable(Drawable drawable){
+        this.drawable = drawable;
+    }
+
+    @Override
+    public void redraw(int x, int y, int width, int height) {
+        this.drawable.redraw(x, y, width, height);
     }
 }
